@@ -95,7 +95,7 @@ app.use(
 
 const sessionConfig = {
   name: "session",
-  secret: process.env.SECRET,
+  secret: process.env.SECRET || 'aSecretKey',
   resave: false,
   saveUninitialized: true,
   cookie: {
