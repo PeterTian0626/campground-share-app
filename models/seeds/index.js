@@ -1,33 +1,38 @@
 const mongoose = require('mongoose')
 const Campground = require('../campground')
 const Locations = require("./cities")
-const { descriptors, places } = require("./camps")
+const Images = require("./images")
+const { camps } = require("./camps")
 
-// mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
-mongoose.connect("mongodb+srv://petertian626:aGI8AxmQuIXX8SwO@cluster0.pgk7z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-
-const sample = (arr) => arr[Math.floor(Math.random() * arr.length) + 1]
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+mongoose.connect(process.env.DB_URL); //Mongo Atlas Url
+// mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp'); //local
 
 const seedDB = async () => {
   await Campground.deleteMany({})
   for (let i = 0; i < 100; i++) {
+    const idx = (i < Locations.length)? i : i % Locations.length
     const price = 20 + Math.floor(Math.random() * 30)
-    const random = Math.round(Math.random() * 1000)
-    const location = `${Locations[random].city}, ${Locations[random].state}`
-    const title = `${sample(descriptors)} ${sample(places)} (Seed Data)`
+    // const random = Math.round(Math.random() * 1000)
+    const location = `${Locations[i % Locations.length].city}, ${Locations[i % Locations.length].state}`
+    const title = camps[i % camps.length].title
     const camp = new Campground({
       title: title,
       location: location,
       geometry: {
         type: 'Point',
-        coordinates: [Locations[random].longitude, Locations[random].latitude]
+        coordinates: [Locations[i % Locations.length].longitude, Locations[i % Locations.length].latitude]
       },
       price: price,
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas obcaecati excepturi dicta iure aut perferendis esse repellendus error sequi, soluta, similique fuga odit incidunt! Natus blanditiis vel beatae quisquam expedita!",
-      image: [{ url: `https://res.cloudinary.com/dx8eansli/image/upload/v1725390083/YelpCamp/evkku5j3rqgrm9ybsg3g.jpg`, filename: 'seed_filename' }],
-      author: '66db6a303768b62873d1272f'
+      description: camps[i % camps.length].description,
+      image: [Images[i % Images.length]],
+      author: '66db6a303768b62873d1272f' //production environment
+      // author: "66b38b0dfa50087a4c8e598f" //testing environment
     })
     await camp.save()
+    // console.log(camps[i % camps.length])
   }
   console.log("Seeded db")
 }

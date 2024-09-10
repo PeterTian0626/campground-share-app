@@ -7,3 +7,19 @@
   width: 100;
   height: 500px;
 }
+
+#indexImage {
+  max-height: 320px;
+}
+
+.indexImage {
+    max-height: 230px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .indexImage {
+    max-height: 320px;
+    object-fit: cover;
+  }
+}

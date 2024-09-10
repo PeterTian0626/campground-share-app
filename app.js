@@ -22,7 +22,7 @@ const User = require('./models/user')
 
 
 const dbUrl = process.env.DB_URL|| "mongodb://127.0.0.1:27017/yelp-camp";
-// const dbUrl = process.env.DB_URL;
+// const dbUrl = "mongodb://127.0.0.1:27017/yelp-camp";
 // mongoose.connect(dbUrl);
 
 const secret = process.env.SECRET || 'aSecretKey'
@@ -85,6 +85,7 @@ app.use(
         "blob:",
         "data:",
         "https://res.cloudinary.com/dx8eansli/",
+        "https://res-console.cloudinary.com/dx8eansli/",
         "https://images.unsplash.com/",
         "https://api.maptiler.com/"
       ],
