@@ -59,7 +59,7 @@
     </div>
     <div class="col-md-6">
       <div class="container-fluid">
-        <div id="map"></div>
+        <div id="map" class="mb-3"></div>
       </div>
       <% if (currentUser) {%>
         <h2>Leave a review</h2>
@@ -75,13 +75,13 @@
               <label for="first-rate3" title="Average">3 stars</label>
               <input type="radio" id="first-rate4" name="review[rating]" value="4" />
               <label for="first-rate4" title="Very good">4 stars</label>
-              <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-              <label for="first-rate5" title="Amazing">5 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5" checked/>
+              <label for="first-rate5" title="Amazing" >5 stars</label>
             </fieldset>
           </div>
           <div class="mb-3">
             <label for="body" class="form-label">Review</label>
-            <textarea type="text" name="review[body]" id="body" class="form-control" required required></textarea>
+            <textarea type="text" name="review[body]" id="body" class="form-control" required></textarea>
           </div>
           <button class="btn btn-success">Submit</button>
         </form>
